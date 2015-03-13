@@ -1,6 +1,8 @@
 Argr
 ====
 
+[![Join the chat at https://gitter.im/henrytseng/argr](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/henrytseng/argr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A command-line argument parser utility designed to parse command-line arguments.  
 
 Use complex parameters and define a argument signature.  

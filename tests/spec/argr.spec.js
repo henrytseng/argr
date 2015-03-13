@@ -193,5 +193,21 @@ describe('Argr', function(){
 
       done();
     });
+
+    it('Should initialize arguments without use of /usr/bin/node and get parameters correctly', function(done){
+      var Argr = require(process.cwd()+'/lib/argr');
+
+      var args = Argr().init('hello -f tests/data/config.json', false)
+        .option(['f', 'file'], 'Open a file');
+      
+      assert.equal(args.get('f'), 'tests/data/config.json');
+
+      var yargs = Argr('hello -f tests/data/data.json', false)
+        .option(['f', 'file'], 'Open a file');
+      
+      assert.equal(yargs.get('f'), 'tests/data/data.json');
+
+      done();
+    });
   });
 });

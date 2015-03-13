@@ -1,7 +1,7 @@
 {
   "name": "argr",
-  "version": "1.0.0",
-  "description": "Parses command-line arguments",
+  "version": "1.0.1",
+  "description": "A command-line argument parser utility designed to parse command-line arguments.",
   "repository": {
     "type": "git",
     "url": "git@github.com:henrytseng/argr.git"
@@ -20,6 +20,9 @@
     "command",
     "utility",
     "helper",
+    "arguments",
+    "argv",
+    "parameters",
     "cli"
   ],
   "license": "MIT",

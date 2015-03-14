@@ -321,6 +321,34 @@ describe('Argr', function(){
 
       done();
     });
+
+    it('Should default to pattern of defaults single value', function(done){
+      var Argr = require(process.cwd()+'/lib/argr');
+
+      var args = Argr()
+
+        .init('/usr/local/bin/node hello -o world.in')
+
+        .option(['o', 'open'], 'Open a file', 'myfile.dat');
+
+      assert.equal(args.get('o'), 'world.in');
+
+      done();
+    });
+
+    it('Should default to pattern of defaults Array value', function(done){
+      var Argr = require(process.cwd()+'/lib/argr');
+
+      var args = Argr()
+
+        .init('/usr/local/bin/node hello -o world.in take.out')
+
+        .option(['o', 'open'], 'Open a file', ['myfile.dat', 'coypfile.dat']);
+
+      assert.notStrictEqual(args.get('o'), ['world.in', 'take.out']);
+
+      done();
+    });
   });
 
   describe('#usedScript', function() {

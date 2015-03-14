@@ -12,6 +12,16 @@ describe('Argr', function(){
 
       done();
     });
+
+    it('Should initialize throw error on undefined options', function(done){
+      var Argr = require(process.cwd()+'/lib/argr');
+
+      assert.throws(function() {
+        Argr().init('/usr/local/bin/node hello -h', true, true);
+      });
+
+      done();
+    });
   });
 
   describe('#command()', function(){

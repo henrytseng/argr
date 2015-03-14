@@ -130,15 +130,19 @@ describe('Argr', function(){
     it('Should get arguments with short combined parameters', function(done){
       var Argr = require(process.cwd()+'/lib/argr');
 
-      var args = Argr('/usr/local/bin/node hello skipped-value -fbqKx ignore'.split(' '))
+      var args = Argr('/usr/local/bin/node hello skipped-value -fbqKx ignore -a'.split(' '))
         .option(['f', 'foo'], 'Sed ut')
-        .option(['q', 'quo'], 'Lorem ipsum')
+        .option('q', 'Lorem ipsum')
         .option(['K', 'kolor'], 'Ipsum')
+        .option(['a', 'About'], 'Dolor ut')
         .option(['u', 'wasNotProvided'], 'Not defined');
 
       // Provided
       assert.equal(args.get('f'), true);
       assert.equal(args.get('foo'), true);
+
+      // Provided short only
+      assert.equal(args.get('q'), true);
 
       // Not defined but provided
       assert.equal(args.get('b'), true);
@@ -146,6 +150,9 @@ describe('Argr', function(){
       // Was not provided
       assert.equal(args.get('u'), false);
       assert.equal(args.get('wasNotProvided'), false);
+
+      // Provided single
+      assert.equal(args.get('a'), true);
 
       done();
     });

@@ -191,6 +191,38 @@ describe('Argr', function(){
       done();
     });
 
+    it('Should support question mark as a parameter in combo (?)', function(done){
+      var Argr = require(process.cwd()+'/lib/argr');
+
+      // Create an instance of Argr
+      var argr = Argr()
+
+        .init('/usr/local/bin/node hello skipped-value -a?b')
+
+        .option(['?', 'help'], 'Display help');
+
+      // Combined parameters
+      assert.equal(argr.get('?'), true);
+
+      done();
+    });
+
+    it('Should support question mark as a parameter alone (?)', function(done){
+      var Argr = require(process.cwd()+'/lib/argr');
+
+      // Create an instance of Argr
+      var argr = Argr()
+
+        .init('/usr/local/bin/node hello skipped-value -?')
+
+        .option(['?', 'help'], 'Display help');
+
+      // Combined parameters
+      assert.equal(argr.get('?'), true);
+
+      done();
+    });
+
     it('Should ignore parameters in signatures even if they look like arguments', function(done){
       var Argr = require(process.cwd()+'/lib/argr');
 

@@ -88,8 +88,8 @@ Create an instance of argument parser and possibly call `argr.init(args, usedScr
 	
 
 
-argr.init(args, usedScript)
----------------------------
+argr.init(args, usedScript, useStrict)
+--------------------------------------
 
 Initialize, chainable
 
@@ -112,6 +112,14 @@ A flag for command argument start, default true.
 True assumes use of `/usr/local/bin/node` and starts parsing at index 2.  
 
 False starts parsing at index 1.  
+	
+### useStrict {Boolean}
+
+A flag to throw Error on undefined options, default false.  
+
+	var a = Argr('/usr/local/bin/node hello -?', false, true);
+
+An error is thrown if `?` is not defined through `argr.option()`
 
 
 

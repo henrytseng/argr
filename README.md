@@ -201,6 +201,17 @@ Retrieves a full description of the defined parameters
 
 
 
+argr.options()
+--------------
+
+Get all defined options
+
+	a.options()
+
+All of the option definitions
+
+
+
 argr.get(name)
 --------------
 

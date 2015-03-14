@@ -32,15 +32,13 @@ Run the following
 Quick Start
 -----------
 
-Use as follows where the argument is `'/usr/local/bin/node hello skipped-value -abc -g -50.2 232 -s=abc-def ignored'`
-
 Import the definition
 
 	var Argr = require('argr');
 
 Create an instance of Argr and set the command-line argument
 
-	var argr = Argr(process.argv)
+	var argr = Argr().init('/usr/local/bin/node hello -abc -g -50.2 232 -s=abc-def')
 
 Define some simple options
 
@@ -81,15 +79,49 @@ Use compact syntax with `{name}={value}`
 Argr Class
 ----------
 
-Create an instance of argument parser and possibly call `argr.init(args, usedScript)` immediately.  
+Create an instance of argument parser.  
 
 	var Argr = require('argr');
-	var a = Argr(process.argv);
+	var a = Argr().init(process.argv);
 	
 
 
-argr.init(args, usedScript, useStrict)
---------------------------------------
+argr.usedScript(flag)
+---------------------
+
+### flag {Boolean}
+
+A flag for command argument start, default true.  
+
+True assumes use of `/usr/local/bin/node` and starts parsing at index 2.  False starts parsing at index 1.  
+
+Must be set before `.init()`
+
+	var a = Argr()
+		.usedScript(true)
+		.init('/usr/local/bin/node hello -?');
+
+
+
+argr. useStrict(flag)
+---------------------
+
+### flag {Boolean}
+
+A flag to throw Error on undefined options, default false.  
+
+	var a = Argr()
+		.useStrict(true)
+		.init('/usr/local/bin/node hello -?');
+
+An error is thrown if `?` is not defined through `argr.option()` during initialization.  
+
+Must be set before `.init()`
+
+
+
+argr.init(args)
+---------------
 
 Initialize, chainable
 
@@ -98,29 +130,13 @@ Initialize, chainable
 `Object` Create an argument parser instance from `process.argv` argument vector.  
 
 	var Argr = require('argr');
-	var a = Argr(process.argv);
+	var a = Argr().init(process.argv);
 
 `String` Or create an argument parser from string.
 
 	var Argr = require('argr');
-	var a = Argr('/usr/local/bin/node hello -f tests/data/config.json');
+	var a = Argr().init('/usr/local/bin/node hello -f tests/data/config.json');
 	
-### usedScript {Boolean}
-
-A flag for command argument start, default true.  
-
-True assumes use of `/usr/local/bin/node` and starts parsing at index 2.  
-
-False starts parsing at index 1.  
-	
-### useStrict {Boolean}
-
-A flag to throw Error on undefined options, default false.  
-
-	var a = Argr('/usr/local/bin/node hello -?', false, true);
-
-An error is thrown if `?` is not defined through `argr.option()`
-
 
 
 argr.command()
@@ -128,7 +144,7 @@ argr.command()
 
 Get command from argument vector.
 
-	var a = Argr('hello -f tests/data/config.json', false);
+	var a = Argr().init('/use/local/bin/node hello -f tests/data/config.json');
 	assert(a.command() === 'hello');
 
 
@@ -235,7 +251,7 @@ A name of a specific parameter
 Combined parameters
 -------------------
 
-	var argr = Argr('cmd -zxvf', false);
+	var argr = Argr().init('/usr/local/bin/node cmd -zxvf');
 
 Parameters can be combined for shorter syntax each will become parameters.  
 
@@ -256,7 +272,7 @@ Any undefined arguments will still be retrievable using `.get('n')` where `'n'` 
 Complex syntax using signatures
 -------------------
 
-	var argr = Argr('cmd -g -50.32 74.2', false);
+	var argr = Argr().init('/usr/local/bin/node cmd -g -50.32 74.2');
 	argr.option(['g', 'geocoords'], 'A set of geocoordinates', null, ['lat', 'lng'])
 
 Using a signature will allow complex syntax returning the result as a hash where the keys are defined in the signature.  
@@ -269,7 +285,7 @@ Using a signature will allow complex syntax returning the result as a hash where
 Compact syntax
 -------------------
 
-	var argr = Argr('cmd -f=myfile.txt', false);
+	var argr = Argr().init('/usr/local/bin/node cmd -f=myfile.txt');
 	
 Compact syntax allows the use of `[name]=[value]` pairs
 

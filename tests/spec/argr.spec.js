@@ -13,12 +13,26 @@ describe('Argr', function(){
       done();
     });
 
-    it('Should initialize throw error on undefined options', function(done){
+    it('Should initialize throw error on undefined options in strict mode', function(done){
       var Argr = require(process.cwd()+'/lib/argr');
 
       assert.throws(function() {
-        Argr().init('/usr/local/bin/node hello -h', true, true);
+        Argr()
+          .useStrict(true)
+          .init('/usr/local/bin/node hello -h');
       });
+
+      done();
+    });
+
+    it('Should initialize not throw error on supported arguments in strict mode', function(done){
+      var Argr = require(process.cwd()+'/lib/argr');
+
+      Argr()
+        .option(['a', 'option_a'], 'Option A')
+        .option(['b', 'option_b'], 'Option B')
+        .useStrict(true)
+        .init('/usr/local/bin/node hello -ab');
 
       done();
     });
@@ -40,7 +54,10 @@ describe('Argr', function(){
       var Argr = require(process.cwd()+'/lib/argr');
 
       assert.equal(
-        Argr().init('hello tests/data/config.json', false).command(),
+        Argr()
+          .usedScript(false)
+          .init('hello tests/data/config.json')
+          .command(),
         'hello'
       );
 
@@ -103,7 +120,9 @@ describe('Argr', function(){
     it('Should get options in definition', function(done){
       var Argr = require(process.cwd()+'/lib/argr');
 
-      var argr = Argr('/usr/local/bin/node hello skipped-value -abc -g -50.2 232 -s=abc-def ignored')
+      var argr = Argr()
+
+        .init('/usr/local/bin/node hello skipped-value -abc -g -50.2 232 -s=abc-def ignored')
 
         .option(['a', 'option_a'], 'Option A')
         .option(['b', 'option_b'], 'Option B')
@@ -125,7 +144,9 @@ describe('Argr', function(){
     it('Should get default values according to definition default', function(done){
       var Argr = require(process.cwd()+'/lib/argr');
 
-      var args = Argr('/usr/local/bin/node hello -k'.split(' '))
+      var args = Argr()
+
+        .init('/usr/local/bin/node hello -k'.split(' '))
         .option(['o', 'open'], 'Open a file', 'myfile.m');
 
       // Default value
@@ -140,7 +161,10 @@ describe('Argr', function(){
     it('Should get arguments with short combined parameters', function(done){
       var Argr = require(process.cwd()+'/lib/argr');
 
-      var args = Argr('/usr/local/bin/node hello skipped-value -fbqKx ignore -a'.split(' '))
+      var args = Argr()
+
+        .init('/usr/local/bin/node hello skipped-value -fbqKx ignore -a'.split(' '))
+
         .option(['f', 'foo'], 'Sed ut')
         .option('q', 'Lorem ipsum')
         .option(['K', 'kolor'], 'Ipsum')
@@ -171,7 +195,9 @@ describe('Argr', function(){
       var Argr = require(process.cwd()+'/lib/argr');
 
       // Create an instance of Argr
-      var argr = Argr('/usr/local/bin/node hello skipped-value -abc -g -50.2 232 -s=abc-def ignored'.split(' '))
+      var argr = Argr()
+
+        .init('/usr/local/bin/node hello skipped-value -abc -g -50.2 232 -s=abc-def ignored'.split(' '))
 
         // Define the options available
         .option(['a', 'option_a'], 'Option A')
@@ -204,7 +230,9 @@ describe('Argr', function(){
       var Argr = require(process.cwd()+'/lib/argr');
 
       // Create an instance of Argr
-      var argr = Argr('/usr/local/bin/node hello skipped-value -abc -g -50.2 232 -s=abc-def ignored')
+      var argr = Argr()
+
+        .init('/usr/local/bin/node hello skipped-value -abc -g -50.2 232 -s=abc-def ignored')
 
         // Define the options available
         .option(['a', 'option_a'], 'Option A')
@@ -236,7 +264,9 @@ describe('Argr', function(){
     it('Should use last defined parameter when doubles encountered', function(done){
       var Argr = require(process.cwd()+'/lib/argr');
 
-      var args = Argr('/usr/local/bin/node hello -o first.1 --open second.2'.split(' '))
+      var args = Argr()
+
+        .init('/usr/local/bin/node hello -o first.1 --open second.2'.split(' '))
         .option(['o', 'open'], 'Open a file', 'myfile.dat');
 
       assert.equal(args.get('o'), 'second.2');
@@ -247,7 +277,10 @@ describe('Argr', function(){
     it('Should get arguments according to short and long parameter names without signature', function(done){
       var Argr = require(process.cwd()+'/lib/argr');
 
-      var args = Argr('/usr/local/bin/node hello -o world.in --print output.out'.split(' '))
+      var args = Argr()
+
+        .init('/usr/local/bin/node hello -o world.in --print output.out'.split(' '))
+
         .option(['o', 'open'], 'Open a file', 'myfile.dat')
         .option(['p', 'print'], 'Print out a log', 'mylog.txt');
 
@@ -256,19 +289,18 @@ describe('Argr', function(){
 
       done();
     });
+  });
 
+  describe('#usedScript', function() {
     it('Should initialize arguments without use of /usr/bin/node and get parameters correctly', function(done){
       var Argr = require(process.cwd()+'/lib/argr');
 
-      var args = Argr().init('hello -f tests/data/config.json', false)
+      var args = Argr()
+        .usedScript(false)
+        .init('hello -f tests/data/config.json')
         .option(['f', 'file'], 'Open a file');
       
       assert.equal(args.get('f'), 'tests/data/config.json');
-
-      var yargs = Argr('hello -f tests/data/data.json', false)
-        .option(['f', 'file'], 'Open a file');
-      
-      assert.equal(yargs.get('f'), 'tests/data/data.json');
 
       done();
     });

@@ -14,6 +14,30 @@ describe('Argr', function(){
     });
   });
 
+  describe('#command()', function(){
+    it('Should get command', function(done){
+      var Argr = require(process.cwd()+'/lib/argr');
+
+      assert.equal(
+        Argr().init('/usr/local/bin/node hello tests/data/config.json').command(),
+        'hello'
+      );
+
+      done();
+    });
+
+    it('Should get command without script', function(done){
+      var Argr = require(process.cwd()+'/lib/argr');
+
+      assert.equal(
+        Argr().init('hello tests/data/config.json', false).command(),
+        'hello'
+      );
+
+      done();
+    });
+  });
+
   describe('#option()', function(){
     it('Should set/get definition with only one short/long param', function(done){
       var Argr = require(process.cwd()+'/lib/argr');

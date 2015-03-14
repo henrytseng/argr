@@ -115,6 +115,16 @@ False starts parsing at index 1.
 
 
 
+argr.command()
+--------------
+
+Get command from argument vector.
+
+	var a = Argr('hello -f tests/data/config.json');
+	assert(a.command() === 'hello');
+
+
+
 argr.option(param, description, [values], [signature])
 --------------------------------------------------
 

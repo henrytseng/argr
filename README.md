@@ -103,7 +103,7 @@ Initialize, chainable
 `String` Or create an argument parser from string.
 
 	var Argr = require('argr');
-	var a = Argr('hello -f tests/data/config.json');
+	var a = Argr('/usr/local/bin/node hello -f tests/data/config.json');
 	
 ### usedScript {Boolean}
 
@@ -120,7 +120,7 @@ argr.command()
 
 Get command from argument vector.
 
-	var a = Argr('hello -f tests/data/config.json');
+	var a = Argr('hello -f tests/data/config.json', false);
 	assert(a.command() === 'hello');
 
 

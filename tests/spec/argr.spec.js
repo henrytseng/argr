@@ -89,6 +89,28 @@ describe('Argr', function(){
     });
   });
 
+  describe('#options()', function(){
+    it('Should get options in definition', function(done){
+      var Argr = require(process.cwd()+'/lib/argr');
+
+      var argr = Argr('/usr/local/bin/node hello skipped-value -abc -g -50.2 232 -s=abc-def ignored')
+
+        .option(['a', 'option_a'], 'Option A')
+        .option(['b', 'option_b'], 'Option B')
+        .option(['g', 'geocoord'], 'A geocoordinate', null, ['lat', 'lng'])
+        .option(['s', 'string'], 'A string', 'mydefaultstring');
+
+      assert.equal(argr.options().length, 4);
+      assert.equal(argr.options()[0].param[0], 'a');
+      assert.equal(argr.options()[1].param[0], 'b');
+      assert.equal(argr.options()[2].param[0], 'g');
+      assert.equal(argr.options()[3].param[0], 's');
+
+      done();
+    });
+  });
+
+
   describe('#get()', function(){
     it('Should get default values according to definition default', function(done){
       var Argr = require(process.cwd()+'/lib/argr');

@@ -1,10 +1,10 @@
-Argr
+argr
 ====
 
 [![Build Status](https://travis-ci.org/henrytseng/argr.svg)](https://travis-ci.org/henrytseng/argr)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/henrytseng/argr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-A command-lineargument parser utility designed to parse command-line arguments.  
+A command-line argument parser utility designed to parse command-line arguments.  
 
 Use complex parameters and define a argument signature.  
 

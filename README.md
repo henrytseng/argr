@@ -36,22 +36,22 @@ Import the definition
 
 	var Argr = require('argr');
 
-Create an instance of Argr and set the command-line argument
+Create an instance of Argr and set the command-line argument (e.g. - `/usr/local/bin/node hello -abc -g -50.2 232 -s=abc-def`)
 
 	var argr = Argr().init('/usr/local/bin/node hello -abc -g -50.2 232 -s=abc-def')
 
-Define some simple options
+Define some **simple options**, to accept the following `hello -ab` and `hello --option_a --option_b` 
 
 	argr
 	  .option(['a', 'option_a'], 'Option A')
 	  .option(['b', 'option_b'], 'Option B');
 
-Define an option with complex syntax specified with signature arguments: `-g -50.2 232`
+Define an option with **complex syntax** specified with signature arguments: `-g -50.2 232` where `-g` option will always expect two additional values following
 
 	argr
 	  .option(['g', 'geocoord'], 'A geocoordinate', null, ['lat', 'lng']);
 
-Define an option with compact syntax: `-s=abc-def` with default parameters
+Define an option with **compact syntax**: `-s=abc-def` with default parameters
 
 	argr
 	  .option(['s', 'string'], 'A string', 'mydefaultstring');

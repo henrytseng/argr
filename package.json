@@ -1,6 +1,6 @@
 {
   "name": "argr",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "A command-line argument parser utility designed to parse command-line arguments.",
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "lodash": "^3.5.0"
   },
   "devDependencies": {
+    "jasmine": "^2.2.1",
     "mocha": "~2.2.1"
   }
 }

@@ -59,7 +59,7 @@ And initialize it (e.g. - `/usr/local/bin/node hello -abc -g -50.2 232 -s=abc-de
 
 Full example: 
 
-	var Argr = require(process.cwd()+'/lib/argr');
+	var Argr = require('argr');
 
 	Argr()
 	  .option(['a', 'option_a'], 'Option A')

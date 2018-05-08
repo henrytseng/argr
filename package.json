@@ -1,6 +1,6 @@
 {
   "name": "argr",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A command-line argument parser utility designed to parse command-line arguments.",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
     "watch": "mocha tests/spec -w",
     "test": "mocha tests/spec"
   },
-  "author": "Henry Tseng <contact@henrytseng.com> (http://www.henrytseng.com/)",
+  "author": "Henry Tseng <info@heycanvas.com> (http://www.henrytseng.com/)",
   "keywords": [
     "command-line",
     "commandline",
@@ -27,10 +27,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "lodash": "^3.5.0"
   },
   "devDependencies": {
-    "jasmine": "^2.2.1",
     "mocha": "~2.2.1"
   },
   "engines": {

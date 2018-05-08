@@ -1,0 +1,52 @@
+{
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "rules": {
+    "block-scoped-var": 2,
+    "comma-dangle": 2,
+    "guard-for-in": 2,
+    "no-case-declarations": 2,
+    "no-cond-assign": 0,
+    "no-console": 0,
+    "no-constant-condition": 1,
+    "no-control-regex": 2,
+    "no-debugger": 1,
+    "no-dupe-args": 2,
+    "no-dupe-keys": 2,
+    "no-duplicate-case": 2,
+    "no-empty-character-class": 2,
+    "no-empty": 2,
+    "no-empty-pattern": 2,
+    "no-eval": 2,
+    "no-ex-assign": 2,
+    "no-extra-semi": 2,
+    "no-func-assign": 2,
+    "no-inner-declarations": 2,
+    "no-invalid-regexp": 2,
+    "no-irregular-whitespace": 2,
+    "no-multi-spaces": 2,
+    "no-native-reassign": 2,
+    "no-negated-in-lhs": 2,
+    "no-new-wrappers": 2,
+    "no-obj-calls": 2,
+    "no-octal": 2,
+    "no-octal-escape": 2,
+    "no-redeclare": 2,
+    "no-regex-spaces": 2,
+    "no-sparse-arrays": 2,
+    "no-throw-literal": 2,
+    "no-undef": 2,
+    "no-unexpected-multiline": 2,
+    "no-unreachable": 1,
+    "no-with": 2,
+    "semi": 2,
+    "use-isnan": 2,
+    "valid-typeof": 2,
+    "wrap-iife": [2, "any"]
+  }
+}

@@ -139,6 +139,27 @@ describe('Argr', function(){
     });
   });
 
+  describe('#actions()', function(){
+    it('Should get any actions as non-parameters', function(done){
+      var Argr = require(process.cwd()+'/lib/argr');
+
+      var argr = Argr()
+        .init('/usr/local/bin/node hello action-value -abc -g -50.2 232 -s=abc-def second_value')
+        .option(['a', 'option_a'], 'Option A')
+        .option(['b', 'option_b'], 'Option B')
+        .option(['g', 'geocoord'], 'A geocoordinate', null, ['lat', 'lng'])
+        .option(['s', 'string'], 'A string', 'mydefaultstring');
+
+      assert.equal(argr.actions().length, 2);
+      assert.equal(argr.actions()[0], 'action-value');
+      assert.equal(argr.actions()[1], 'second_value');
+      assert.ok(argr.action('action-value'));
+      assert.ok(argr.action('second_value'));
+      assert.ok(!argr.action('not-called'));
+
+      done();
+    });
+  });
 
   describe('#get()', function(){
     it('Should get default values according to definition default', function(done){
@@ -359,7 +380,7 @@ describe('Argr', function(){
         .usedScript(false)
         .init('hello -f tests/data/config.json')
         .option(['f', 'file'], 'Open a file');
-      
+
       assert.equal(args.get('f'), 'tests/data/config.json');
 
       done();

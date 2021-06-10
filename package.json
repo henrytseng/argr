@@ -1,6 +1,6 @@
 {
   "name": "argr",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A command-line argument parser utility designed to parse command-line arguments.",
   "repository": {
     "type": "git",

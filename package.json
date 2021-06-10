@@ -26,10 +26,8 @@
     "cli"
   ],
   "license": "MIT",
-  "dependencies": {
-  },
   "devDependencies": {
-    "mocha": "~2.2.1"
+    "mocha": "^9.0.0"
   },
   "engines": {
     "node": ">=5.9"

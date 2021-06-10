@@ -1,8 +1,9 @@
 argr
 ====
 
-[![Build Status](https://travis-ci.org/henrytseng/argr.svg)](https://travis-ci.org/henrytseng/argr)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/henrytseng/argr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+[![Node.js CI](https://github.com/henrytseng/argr/actions/workflows/node.js.yml/badge.svg?branch=master)](https://github.com/henrytseng/argr/actions/workflows/node.js.yml)
 
 A command-line argument parser utility designed to parse command-line arguments.  
 

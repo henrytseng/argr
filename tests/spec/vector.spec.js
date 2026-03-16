@@ -1,30 +1,21 @@
-'use strict';
+import assert from 'assert';
+import Vector from '../../lib/vector.js';
 
-var assert = require("assert");
+describe('Vector', function() {
 
-describe('Vector', function(){
-
-  it('Should create a vector with signature', function(done){
-    var Vector = require(process.cwd()+'/lib/vector');
-
-    var v = Vector(['New York', '469 sqmi'], ['city', 'area']);
+  it('Should create a vector with signature', function() {
+    const v = Vector(['New York', '469 sqmi'], ['city', 'area']);
 
     assert.notStrictEqual(v, {
       city: 'New York',
       area: '469 sqmi'
     });
-
-    done();
   });
 
-  it('Should pass value without signature', function(done){
-    var Vector = require(process.cwd()+'/lib/vector');
-
-    var v = Vector('foo');
+  it('Should pass value without signature', function() {
+    const v = Vector('foo');
 
     assert.equal(v, 'foo');
-
-    done();
   });
 
 });

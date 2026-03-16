@@ -1,58 +1,39 @@
-'use strict';
+import assert from 'assert';
+import Argr from '../../lib/argr.js';
 
-var assert = require("assert");
+describe('Argr', function() {
 
-describe('Argr', function(){
-
-  describe('#init()', function(){
-    it('Should initialize arguments without error', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
+  describe('#init()', function() {
+    it('Should initialize arguments without error', function() {
       Argr().init('/usr/local/bin/node hello tests/data/config.json'.split(' '));
-
-      done();
     });
 
-    it('Should initialize throw error on undefined options in strict mode', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
+    it('Should initialize throw error on undefined options in strict mode', function() {
       assert.throws(function() {
         Argr()
           .useStrict(true)
           .init('/usr/local/bin/node hello -h');
       });
-
-      done();
     });
 
-    it('Should initialize not throw error on supported arguments in strict mode', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
+    it('Should initialize not throw error on supported arguments in strict mode', function() {
       Argr()
         .option(['a', 'option_a'], 'Option A')
         .option(['b', 'option_b'], 'Option B')
         .useStrict(true)
         .init('/usr/local/bin/node hello -ab');
-
-      done();
     });
   });
 
-  describe('#command()', function(){
-    it('Should get command', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
+  describe('#command()', function() {
+    it('Should get command', function() {
       assert.equal(
         Argr().init('/usr/local/bin/node hello tests/data/config.json').command(),
         'hello'
       );
-
-      done();
     });
 
-    it('Should get command without script', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
+    it('Should get command without script', function() {
       assert.equal(
         Argr()
           .usedScript(false)
@@ -60,67 +41,51 @@ describe('Argr', function(){
           .command(),
         'hello'
       );
-
-      done();
     });
   });
 
-  describe('#option()', function(){
-    it('Should set/get definition with only one short/long param', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      var args = Argr();
+  describe('#option()', function() {
+    it('Should set/get definition with only one short/long param', function() {
+      const args = Argr();
 
       // Set
       args.option('p', 'Lorem ipsum', 'abc');
 
       // Get
-      var optDef = args.option('p');
+      const optDef = args.option('p');
       assert.equal(optDef.value(), 'abc');
       assert.equal(optDef.description, 'Lorem ipsum');
-
-      done();
     });
 
-    it('Should get non-existing definition as undefined', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      var args = Argr();
+    it('Should get non-existing definition as undefined', function() {
+      const args = Argr();
 
       // Get
-      var optDef = args.option('p');
+      const optDef = args.option('p');
       assert.ok(typeof optDef === 'undefined');
-
-      done();
     });
 
-    it('Should accept short and long parameter names', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      var args = Argr();
+    it('Should accept short and long parameter names', function() {
+      const args = Argr();
 
       // Set
       args.option(['p', 'longParam'], 'Lorem ipsum', 'abc');
 
       // Get short
-      var shortDef = args.option('p');
+      const shortDef = args.option('p');
       assert.equal(shortDef.value(), 'abc');
       assert.equal(shortDef.description, 'Lorem ipsum');
 
       // Get long
-      var longDef = args.option('longParam');
+      const longDef = args.option('longParam');
       assert.equal(longDef.value(), 'abc');
       assert.equal(longDef.description, 'Lorem ipsum');
-
-      done();
     });
   });
 
-  describe('#options()', function(){
-    it('Should get options in definition', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      var argr = Argr()
+  describe('#options()', function() {
+    it('Should get options in definition', function() {
+      const argr = Argr()
 
         .init('/usr/local/bin/node hello skipped-value -abc -g -50.2 232 -s=abc-def ignored')
 
@@ -134,16 +99,12 @@ describe('Argr', function(){
       assert.equal(argr.options()[1].param[0], 'b');
       assert.equal(argr.options()[2].param[0], 'g');
       assert.equal(argr.options()[3].param[0], 's');
-
-      done();
     });
   });
 
-  describe('#actions()', function(){
-    it('Should get any actions as non-parameters', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      var argr = Argr()
+  describe('#actions()', function() {
+    it('Should get any actions as non-parameters', function() {
+      const argr = Argr()
         .init('/usr/local/bin/node hello action-value -abc -g -50.2 232 -s=abc-def second_value')
         .option(['a', 'option_a'], 'Option A')
         .option(['b', 'option_b'], 'Option B')
@@ -156,16 +117,12 @@ describe('Argr', function(){
       assert.ok(argr.action('action-value'));
       assert.ok(argr.action('second_value'));
       assert.ok(!argr.action('not-called'));
-
-      done();
     });
   });
 
-  describe('#get()', function(){
-    it('Should get default values according to definition default', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      var args = Argr()
+  describe('#get()', function() {
+    it('Should get default values according to definition default', function() {
+      const args = Argr()
 
         .init('/usr/local/bin/node hello -k'.split(' '))
         .option(['o', 'open'], 'Open a file', 'myfile.m');
@@ -175,14 +132,10 @@ describe('Argr', function(){
 
       // Non-existing
       assert.equal(args.get('p'), false);
-
-      done();
     });
 
-    it('Should get arguments with short combined parameters', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      var args = Argr()
+    it('Should get arguments with short combined parameters', function() {
+      const args = Argr()
 
         .init('/usr/local/bin/node hello skipped-value -fbqKx ignore -a'.split(' '))
 
@@ -208,15 +161,10 @@ describe('Argr', function(){
 
       // Provided single
       assert.equal(args.get('a'), true);
-
-      done();
     });
 
-    it('Should support question mark as a parameter in combo (?)', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      // Create an instance of Argr
-      var argr = Argr()
+    it('Should support question mark as a parameter in combo (?)', function() {
+      const argr = Argr()
 
         .init('/usr/local/bin/node hello skipped-value -a?b')
 
@@ -224,15 +172,10 @@ describe('Argr', function(){
 
       // Combined parameters
       assert.equal(argr.get('?'), true);
-
-      done();
     });
 
-    it('Should support question mark as a parameter alone (?)', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      // Create an instance of Argr
-      var argr = Argr()
+    it('Should support question mark as a parameter alone (?)', function() {
+      const argr = Argr()
 
         .init('/usr/local/bin/node hello skipped-value -?')
 
@@ -240,15 +183,10 @@ describe('Argr', function(){
 
       // Combined parameters
       assert.equal(argr.get('?'), true);
-
-      done();
     });
 
-    it('Should ignore parameters in signatures even if they look like arguments', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      // Create an instance of Argr
-      var argr = Argr()
+    it('Should ignore parameters in signatures even if they look like arguments', function() {
+      const argr = Argr()
 
         .init('/usr/local/bin/node hello skipped-value -abc -g -50.2 232 -s=abc-def ignored'.split(' '))
 
@@ -275,15 +213,10 @@ describe('Argr', function(){
 
       // Compact syntax
       assert.equal(argr.get('s').butter, 'abc-def');
-
-      done();
     });
 
-    it('Should allow use of string syntax instead of process.argv', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      // Create an instance of Argr
-      var argr = Argr()
+    it('Should allow use of string syntax instead of process.argv', function() {
+      const argr = Argr()
 
         .init('/usr/local/bin/node hello skipped-value -abc -g -50.2 232 -s=abc-def ignored')
 
@@ -310,27 +243,19 @@ describe('Argr', function(){
 
       // Compact syntax
       assert.equal(argr.get('s'), 'abc-def');
-
-      done();
     });
 
-    it('Should use last defined parameter when doubles encountered', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      var args = Argr()
+    it('Should use last defined parameter when doubles encountered', function() {
+      const args = Argr()
 
         .init('/usr/local/bin/node hello -o first.1 --open second.2'.split(' '))
         .option(['o', 'open'], 'Open a file', 'myfile.dat');
 
       assert.equal(args.get('o'), 'second.2');
-
-      done();
     });
 
-    it('Should get arguments according to short and long parameter names without signature', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      var args = Argr()
+    it('Should get arguments according to short and long parameter names without signature', function() {
+      const args = Argr()
 
         .init('/usr/local/bin/node hello -o world.in --print output.out'.split(' '))
 
@@ -339,51 +264,37 @@ describe('Argr', function(){
 
       assert.equal(args.get('o'), 'world.in');
       assert.equal(args.get('print'), 'output.out');
-
-      done();
     });
 
-    it('Should default to pattern of defaults single value', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      var args = Argr()
+    it('Should default to pattern of defaults single value', function() {
+      const args = Argr()
 
         .init('/usr/local/bin/node hello -o world.in')
 
         .option(['o', 'open'], 'Open a file', 'myfile.dat');
 
       assert.equal(args.get('o'), 'world.in');
-
-      done();
     });
 
-    it('Should default to pattern of defaults Array value', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      var args = Argr()
+    it('Should default to pattern of defaults Array value', function() {
+      const args = Argr()
 
         .init('/usr/local/bin/node hello -o world.in take.out')
 
         .option(['o', 'open'], 'Open a file', ['myfile.dat', 'coypfile.dat']);
 
       assert.notStrictEqual(args.get('o'), ['world.in', 'take.out']);
-
-      done();
     });
   });
 
   describe('#usedScript', function() {
-    it('Should initialize arguments without use of /usr/bin/node and get parameters correctly', function(done){
-      var Argr = require(process.cwd()+'/lib/argr');
-
-      var args = Argr()
+    it('Should initialize arguments without use of /usr/bin/node and get parameters correctly', function() {
+      const args = Argr()
         .usedScript(false)
         .init('hello -f tests/data/config.json')
         .option(['f', 'file'], 'Open a file');
 
       assert.equal(args.get('f'), 'tests/data/config.json');
-
-      done();
     });
   });
 });

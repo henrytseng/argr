@@ -1,10 +1,11 @@
 {
   "env": {
     "node": true,
-    "jest": true
+    "mocha": true
   },
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 2022,
+    "sourceType": "module"
   },
   "rules": {
     "block-scoped-var": 2,
@@ -30,8 +31,6 @@
     "no-invalid-regexp": 2,
     "no-irregular-whitespace": 2,
     "no-multi-spaces": 2,
-    "no-native-reassign": 2,
-    "no-negated-in-lhs": 2,
     "no-new-wrappers": 2,
     "no-obj-calls": 2,
     "no-octal": 2,

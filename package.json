@@ -1,14 +1,15 @@
 {
   "name": "argr",
-  "version": "1.2.3",
+  "version": "2.0.0",
   "description": "A command-line argument parser utility designed to parse command-line arguments.",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git@github.com:henrytseng/argr.git"
   },
-  "main": "lib/argr",
+  "main": "lib/argr.js",
   "scripts": {
-    "watch": "mocha tests/spec -w",
+    "watch": "mocha tests/spec --watch",
     "test": "mocha tests/spec"
   },
   "author": "Henry Tseng <info@heycanvas.com> (http://www.henrytseng.com/)",
@@ -27,9 +28,9 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "mocha": "^9.0.0"
+    "mocha": "^10.0.0"
   },
   "engines": {
-    "node": ">=5.9"
+    "node": ">=22"
   }
 }
